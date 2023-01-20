@@ -1,0 +1,696 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "Engine/DataTable.h"
+#include "Enums.generated.h"
+
+UENUM(BlueprintType)
+enum class EPlatformFlag : uint8
+{
+	None,
+	Android,
+	DMM,
+	IOS,
+	Nintendo,
+	PSN,
+	Steam,
+	GRDK,
+	Xbox,
+	EPlatformFlag_MAX
+};
+UENUM(BlueprintType)
+enum class EKillerJoiningState : uint8
+{
+	Disconnected,
+	Connected,
+	ConnectionFailed,
+	EKillerJoiningState_MAX
+};
+UENUM(BlueprintType)
+enum class EGameState : uint8
+{
+	VE_Active,
+	VE_Dead,
+	VE_Escaped,
+	VE_EscapedInjured,
+	VE_Sacrificed,
+	VE_None,
+	VE_Disconnected,
+	VE_ManuallyLeftMatch,
+	VE_MAX              
+};
+UENUM(BlueprintType)
+enum class EDBDScoreCategory : uint8
+{
+	DBD_CamperScoreCat_Objectives,
+	DBD_CamperScoreCat_Survival,
+	DBD_CamperScoreCat_Altruism,
+	DBD_CamperScoreCat_Boldness,
+	DBD_SlasherScoreCat_Brutality,
+	DBD_SlasherScoreCat_Deviousness,
+	DBD_SlasherScoreCat_Hunter,
+	DBD_SlasherScoreCat_Sacrifice,
+	DBD_CamperScoreCat_Untracked,
+	DBD_CamperScoreCat_Streak,
+	DBD_ScoreCat_SpecialEvents,
+	DBD_MAX
+};
+UENUM(BlueprintType)
+enum class ECharacterStance : uint8
+{
+	VE_Stand,
+	VE_Crouch,
+	VE_Crawl,
+	VE_MAX   
+};
+UENUM(BlueprintType)
+enum class EAnimNotifyType : uint8
+{
+	VE_None,
+	VE_Pickup,
+	VE_Release,
+	VE_MAX  
+};
+UENUM(BlueprintType)
+enum class EAuthoritativeMovementFlag : uint8
+{
+	INTERACTION,
+	SLASHED,
+	CHEAT,
+	DROPPED,
+	NOPUSH,
+	INTERACTIONNOPUSH,
+	DREAMWORLD_NOSLASHERCOLLISION,
+	COUNT,
+	EAuthoritativeMovementFlag_MAX
+};
+UENUM(BlueprintType)
+enum class EAttackType : uint8
+{
+	VE_None,
+	VE_Slash,
+	VE_Pounce,
+	VE_Chainsaw,
+	VE_Blink,
+	VE_Lunge,
+	VE_LFChainsaw,
+	VE_Ambush,
+	VE_Frenzy,
+	VE_GhostCrouch
+};
+UENUM(BlueprintType)
+enum class EStunType : uint8
+{
+	VE_None,
+	VE_Bookshelf,
+	VE_BearTrap,
+	VE_Flashlight,
+	VE_WiggleFree,
+	VE_EvilWithin,
+	VE_Kicked,
+	VE_Closet,
+	VE_MAX
+};
+UENUM(BlueprintType)
+enum class EInteractionAnimation : uint8
+{
+	VE_None,
+	VE_Generator,
+	VE_PullDownLeft,
+	VE_PullDownRight,
+	VE_Hiding,
+	VE_SearchCloset,
+	VE_HealingOther,
+	VE_OpenEscape,
+	VE_StruggleFree,
+	VE_HealOther,
+	VE_HealSelf,
+	VE_PickedUp,
+	VE_Unused01,
+	VE_Dropped,
+	VE_Unused02,
+	VE_BeingHooked,
+	VE_Sabotage,
+	VE_ChargeBlink,
+	VE_ThrowFirecracker,
+	VE_WakeUpOther,
+	VE_RemoveReverseBearTrap,
+	VE_DeadHard,
+	VE_DestroyPortal,
+	VE_OniDash,
+	VE_MAX                  
+};
+UENUM(BlueprintType)
+enum class EDetectionZone : uint8
+{
+	VE_None,
+	VE_Slash,
+	VE_Pounce,
+	VE_Chainsaw,
+	VE_Obstructed,
+	VE_Interruption,
+	VE_ChainsawLockExtended,
+	VE_Damage,
+	VE_ChainsawObstruction,
+	VE_Blink,
+	VE_ChainsawDamageExtended,
+	VE_Stalker,
+	VE_Lunge,
+	VE_PowerAttack,
+	VE_Max,
+	VE_Max01                 
+};
+UENUM(BlueprintType)
+enum class EAttackSubstate : uint8
+{
+	VE_None,
+	VE_Open,
+	VE_Hitting,
+	VE_HitSucceed,
+	VE_HitMiss,
+	VE_HitObstructed,
+	VE_Done,
+	VE_MAX
+};
+UENUM(BlueprintType)
+enum class ECamperState : uint8
+{
+	VE_None,
+	VE_Navigate,
+	VE_Interact
+};
+UENUM(BlueprintType)
+enum class ETileSpawnPointType : uint8
+{
+	Unspecified,
+	Survivor,
+	SurvivorItem,
+	Killer,
+	KillerItem,
+	InteractableObject
+};
+UENUM(BlueprintType)
+enum class EGameplayElementType : uint8
+{
+	Generic,
+	MeatLocker_Small,
+	TileLights,
+	MeatLocker_Big,
+	Searchable,
+	EdgeObjects,
+	LivingWorldObjects,
+	Hatch,
+	Bookshelves,
+	Totems,
+	QuadrantSpawn,
+	EdgeObjectsBlocker
+};
+UENUM(BlueprintType)
+enum class EscapeStrategyType : uint8
+{
+	EscapeDoor,
+	EscapeHatch
+};
+UENUM(BlueprintType)
+enum class ETileType : uint8
+{
+	None,
+	Blocker,
+	Any,
+	Forest,
+	Building,
+	Maze,
+	Landmarkm,
+	Signature
+};
+UENUM(BlueprintType)
+enum class EDensity : uint8
+{
+	Unspecified,
+	Light,
+	Moderate,
+	Heavy,
+	Empty
+};
+UENUM(BlueprintType)
+enum class EPathType : uint8
+{
+	None,
+	Straight,
+	DeadEnd,
+	Corner,
+	Crossroads,
+	TJunction,
+	OrientationOnly,
+	Unspecified,
+	OrientedCrossroads
+};
+UENUM(BlueprintType)
+enum class EDirection : uint8
+{
+	Up,
+	Down,
+	Left,
+	Right,
+	UpLeft,
+	UpRight,
+	DownLeft,
+	DownRight
+};
+
+ UENUM(BlueprintType)
+enum class ECustomizationCategory : uint8
+{
+	None,
+	SurvivorHead,
+	SurvivorTorso,
+	SurvivorLegs,
+	KillerHead,
+	KillerBody,
+	KillerWeapon,
+	Outfits,
+	Charm
+};
+ UENUM(BlueprintType)
+enum class EGender : uint8
+{
+	VE_Male,
+	VE_Female,
+	VE_Multiple,
+	VE_NotHuman,
+	VE_Undefined
+};
+ UENUM(BlueprintType)
+enum class EKillerAbilities : uint8
+{
+	VE_None,
+	VE_SpawnTraps,
+	VE_Cloak,
+	VE_Chainsaw,
+	VE_Blink,
+	VE_PhantomTrap,
+	VE_Stalker,
+	VE_Killer07Ability,
+	VE_Killer08Ability,
+	VE_LFChainsaw,
+	VE_InduceDreams,
+	VE_ReverseBearTrap,
+	VE_GasBomb,
+	VE_PhaseWalk,
+	VE_Frenzy,
+	VE_Vomit
+};
+ UENUM(BlueprintType)
+enum class EKillerHeight : uint8
+{
+	Short,
+	Average,
+	Tall
+};
+ UENUM(BlueprintType)
+ enum class ECharacterDifficulty : uint8
+{
+	VE_Easy,
+	VE_Intermediate,
+	VE_Hard  
+};
+UENUM(BlueprintType)
+enum class EPlayerRole : uint8
+{
+	VE_None,
+	VE_Slasher,
+	VE_Camper,
+	VE_Observer
+};
+UENUM(BlueprintType)
+enum class EItemRarity : uint8
+{
+	Common,
+	Uncommon,
+	Rare,
+	VeryRare,
+	UltraRare,   
+	Artifact,
+	Spectral,
+	Teachable,
+	SpecialEvent,
+	Legendary,
+	Count,
+	None
+};
+UENUM(BlueprintType)
+enum class EPerkCategory : uint8
+{
+	None,
+	Navigation,
+	Perception,
+	Safeguard,
+	Concealment,
+	Strategy,
+	Support,
+	Adaptation,
+	Chasing,
+	Tracking,
+	Cruelty,
+	Trickery,
+	Obstruction,
+	Hinderance,
+	Enhancement
+};
+UENUM(BlueprintType)
+enum class EAudioCustomizationCategory : uint8
+{
+	AudioCharacterName,
+	AudioCharacterHead,
+	AudioCharacterClothes,
+	AudioCharacterShoes,
+	AudioCharacterWeapon,  
+	AudioCharacterAmbiance,
+	AudioCharacterState
+};
+UENUM(BlueprintType)
+enum class EInventoryItemType : uint8
+{
+	None,
+	Item,
+	ItemAddOn,
+	CamperPerk,
+	Power,
+	PowerAddOn,
+	SlasherPerk,
+	Favor,
+	Customization
+};
+UENUM(BlueprintType)
+enum class EItemHandPosition : uint8
+{
+	None,
+	HandleItem,
+	AimItem,
+	SmallItem,
+	FirecrackerItem
+};
+UENUM(BlueprintType)
+enum class EItemAvailability : uint8
+{
+	Available
+};
+UENUM(BlueprintType)
+enum class EDBDScoreTypes : uint8
+{
+	DBDCamperScore_SurviveHealthy,
+	DBDCamperScore_SurviveWounded,
+	DBDCamperScore_SurviveKO,
+	DBDCamperScore_UnlockHatch,
+	DBDCamperScore_EscapeThroughHatch,
+	DBDCamperScore_AllEscapeThroughHatch,
+	DBDCamperScore_EscapeCarry,
+	DBDCamperScore_SurviveStreakSmall,
+	DBDCamperScore_SurviveStreakBig,
+	DBDCamperScore_DamageStateChanged,
+	DBDCamperScore_NearFriendInNeed,
+	DBDCamperScore_NearFriendInNeed_PostExit,
+	DBDCamperScore_FoundCamper,
+	DBDCamperScore_CoopObjectives,
+	DBDCamperScore_OpenDoorPercent,
+	DBDCamperScore_OpenDoor,
+	DBDCamperScore_GeneratorPercent,
+	DBDCamperScore_GeneratorSkillCheckSuccess,
+	DBDCamperScore_GeneratorSkillCheckBonus,
+	DBDCamperScore_SearchablePercent,
+	DBDCamperScore_SearchCompleteFinalContributionPercent,
+	DBDCamperScore_AddItemToMap,
+	DBDCamperScore_FixGenerator,
+	DBDCamperScore_FixSpecialMapGenerator,
+	DBDCamperScore_LastSurvivorFixGenerator,
+	DBDCamperScore_RepairDamagedGenerator,
+	DBDCamperScore_PowerExitGates,
+	DBDCamperScore_CoopAltruism,
+	DBDCamperScore_HealPercent,
+	DBDCamperScore_HealPercent_PostExit,
+	DBDCamperScore_HealFromDying,
+	DBDCamperScore_HealFromDying_PostExit,
+	DBDCamperScore_HealFromInjured,
+	DBDCamperScore_HealFromInjured_PostExit,
+	DBDCamperScore_HealSkillCheckSuccess,
+	DBDCamperScore_HealSkillCheckBonus,
+	DBDCamperScore_HealSelfPercent,
+	DBDCamperScore_HealSelfSkillCheckSuccess,
+	DBDCamperScore_HealSelfSkillCheckBonus,
+	DBDCamperScore_HitAfterHookSave,
+	DBDCamperScore_HitNearFriendInNeed,
+	DBDCamperScore_HitNearUnhookedFriendInNeed,
+	DBDCamperScore_SabotageHook,
+	DBDCamperScore_SabotageHookSkillCheckSuccess,
+	DBDCamperScore_SabotageHookSkillCheckBonus,
+	DBDCamperScore_EscapeFromHook,
+	DBDCamperScore_HookStrugglePerSecond,
+	DBDCamperScore_SaveFromHook,
+	DBDCamperScore_SaveFromHook_PostExit,
+	DBDCamperScore_WasUnhooked,
+	DBDCamperScore_SabotageBearTrap,
+	DBDCamperScore_SabotageBearTrapSkillCheckSuccess,
+	DBDCamperScore_SabotageBearTrapSkillCheckBonus,
+	DBDCamperScore_DisableBearTrap,
+	DBDCamperScore_SaveFromBearTrap,
+	DBDCamperScore_SaveFromBearTrap_PostExit,
+	DBDCamperScore_EscapeBearTrap,
+	DBDCamperScore_BasementChillingPerSecond,
+	DBDCamperScore_CoopBoldness,
+	DBDCamperScore_SlasherStun,
+	DBDCamperScore_SlasherStunCarrying,
+	DBDCamperScore_SlasherBlind,
+	DBDCamperScore_SlasherBurnInvisibility,
+	DBDCamperScore_ChasePerSecond,
+	DBDCamperScore_ChaseEscape,
+	DBDCamperScore_ChaseSteal,
+	DBDCamperScore_ChaseBlind,
+	DBDCamperScore_VaultInChase,
+	DBDCamperScore_NoiseDistraction,
+	DBDCamperScore_SprintingNearSlasherPerSecond,
+	DBDCamperScore_UnhideNearSlasher,
+	DBDCamperScore_EscapeWhileChased,
+	DBDCamperScore_DestroyPhantomTrap,
+	DBDCamperScore_NewItem,
+	DBDCamperScore_StartMatchWithUltraRareItem,
+	DBDCamperScore_ItemFrom,
+	DBDCamperScore_ExposerAdded,
+	DBDSlasherScore_Destroy,
+	DBDSlasherScore_Kill,
+	DBDSlasherScore_BleedOut,
+	DBDSlasherScore_BleedOutPercent,
+	DBDSlasherScore_AttackSuccess,
+	DBDSlasherScore_AttackDeviousness,
+	DBDSlasherScore_InterruptGenerator,
+	DBDSlasherScore_InterruptWindow,
+	DBDSlasherScore_InterruptHide,
+	DBDSlasherScore_InterruptExit,
+	DBDSlasherScore_InterruptUnhook,
+	DBDSlasherScore_InterruptChest,
+	DBDSlasherScore_InterruptOpenHatch,
+	DBDSlasherScore_InterruptExitHatch,
+	DBDSlasherScore_FindHiding,
+	DBDSlasherScore_PlaceTrap,
+	DBDSlasherScore_Trap,
+	DBDSlasherScore_TrapPickup,
+	DBDSlasherScore_Hook,
+	DBDSlasherScore_SacrificePercent,
+	DBDSlasherScore_SacrificeSuccess,
+	DBDSlasherScore_SacrificedCount,
+	DBDSlasherScore_NoEscape,
+	DBDSlasherScore_ChaseStart,
+	DBDSlasherScore_ChasePerSecond,
+	DBDSlasherScore_CloakStalkPerSecond,
+	DBDSlasherScore_UncloakInView,
+	DBDSlasherScore_UncloakAttack,
+	DBDSlasherScore_EvadeInvisBurn,
+	DBDSlasherScore_EvadeBlind,
+	DBDSlasherScore_CamperDisconnect,
+	DBDSlasherScore_HitCamperWithChainsaw,
+	DBDSlasherScore_RunningWithChainsaw,
+	DBDSlasherScore_ChainBlinkAttack,
+	DBDSlasherScore_ChainBlinkInterrupt,
+	DBDSlasherScore_ChainBlinkInterruptAfter,
+	DBDSlasherScore_ChainBlinkStartChase,
+	DBDSlasherScore_StalkpointGained,
+	DBDSlasherScore_StalkerTierIncrement,
+	DBDSlasherScore_StalkerTierFirstTime,
+	DBDSlasherScore_StalkerKillAllCampers,
+	DBDSlasherScore_PhantomTrapSet,
+	DBDSlasherScore_PhantomTrapTrigger,
+	DBDSlasherScore_PhantomTrapTriggerAttack,
+	DBDSlasherScore_PhantomTrapTeleportAttack,
+	DBDSlasherScore_PhantomTrapTeleportAttackAllCampers,
+	DBDSlasherScore_ThrillOfTheHunt,
+	DBDPlayerScore_BloodwebLevelUp,
+	DBDPlayerScore_BloodwebPrestigeLevelUp,
+	DBDPlayerScore_BloodwebPrestige3LevelUp,
+	DBDPlayerScore_AwardPips,
+	DBDPlayerScore_AddBloodpoints,
+	DBDPlayerScore_BloodpointsOneCategory,
+	DBDPlayerScore_MaxBloodpointsAllCategories,
+	DBDPlayerScore_AddNewPerk,
+	DBDPlayerScore_PerkLevelUp,
+	DBDPlayerScore_BurnOfferingUltraRare,
+	DBDPlayerScore_StartGame,
+	DBDPlayerScore_UnlockRanking,
+	DBDPlayerScore_FinishWithPerks,
+	DBDCamperScore_CheatObjectives,
+	DBDCamperScore_CheatSurvival,
+	DBDCamperScore_CheatAltruism,
+	DBDCamperScore_CheatBoldness,
+	DBDSlasherScore_CheatSacrifice,
+	DBDSlasherScore_CheatBrutality,
+	DBDSlasherScore_CheatDeviousness,
+	DBDSlasherScore_CheatHunter,
+	DBDCamperScore_CleanseDullTotem,
+	DBDCamperScore_CleanseHexTotem,
+	DBDPlayerScore_BalancedLanding,
+	DBDPlayerScore_Lithe,
+	DBDPlayerScore_PharmacyItemGranted,
+	DBDSlasherScore_DamageGenerator,
+	DBDSlasherScore_Vault,
+	DBDCamperScore_StartInjuredBleedout,
+	DBDCamperScore_FullRecovery,
+	DBDCamperScore_FirstTimeDying,
+	DBDCamperScore_SecondTimeDying,
+	DBDCamperScore_FirecrackerDisturbance,
+	DBDCamperScore_GeneratorSkillCheckRuinBonus,
+	DBDCamperScore_SlasherBurnBlink,
+	DBDCamperScore_DieSacrificed,
+	DBDCamperScore_DieBleedOut,
+	DBDCamperScore_DieKill,
+	DBDPlayerScore_EndGame,
+	DBDPlayerScore_EnterParadise,
+	DBDSlasherScore_CamperHookedFirstTime,
+	DBDSlasherScore_CamperEnterHookStrugglePhase,
+	DBDSlasherScore_ElectroShockSurvivor,
+	DBDSlasherScore_BringAllSurvivorsToMadnessTier,
+	DBDSlasherScore_BringSurvivorUpOneMadnessTier,
+	DBDSlasherScore_HitSurvivorAfterElectroShock,
+	DBDSlasherScore_PickupCamper,
+	DBDSlasherScore_Blink,
+	DBDSlasherScore_TeleportToPhantomTrap,
+	DBDSlasherScore_HatchetThrow,
+	DBDSlasherScore_HatchetHit,
+	DBDSlasherScore_HatchetSkillShotHit,
+	DBDSlasherScore_HatchetFarHit,
+	DBDCamperScore_QuickVault,
+	DBDCamperScore_QuickCloset,
+	DBDCamperScore_StartGeneratorRepair,
+	DBDCamperScore_StartCleansingTotem,
+	DBDCamperScore_FirstRepairSkillCheck,
+	DBDSlasherScore_CamperDisconnectedBeforeMatchStart,
+	DBDSlasherScore_CamperDisconnectedDuringMatch,
+	DBDCamperScore_NearFriendInNeed_GeneratorsComplete,
+	DBDCamperScore_HealPercent_GeneratorsComplete,
+	DBDCamperScore_HealFromDying_GeneratorsComplete,
+	DBDCamperScore_SaveFromHook_GeneratorsComplete,
+	DBDCamperScore_SaveFromBearTrap_GeneratorsComplete,
+	DBDCamperScore_SnapOutOfIt,
+	DBDSlasherScore_HookInBasement,
+	DBDSlasherScore_LFChainsawHit,
+	DBDCamperScore_PalletDrop,
+	DBDCamperScore_Vault,
+	DBDSlasherScore_StartChaseWithChainsawAttack,
+	DBDSlasherScore_MissedAttackInChase,
+	DBDCamperScore_DodgeAndVault,
+	DBDCamperScore_BeginQuickVault,
+	DBDSlasherScore_StartChainsawAttack,
+	DBDCamperScore_WakeUpBySkillCheck,
+	DBDCamperScore_FallAsleep,
+	DBDCamperScore_WakeUpSelf,
+	DBDCamperScore_WakeUpOther,
+	DBDSlasherScore_RecentlyAsleepAttack,
+	DBDSlasherScore_SurvivorPartyOnBasementHooks,
+	DBDCamperScore_LootBasementChest,
+	DBDPlayerScore_OpenMysteryBox,
+	DBDGameEvent_SurvivorDowned,
+	DBDGameEvent_SurvivorDied,
+	DBDGameEvent_KillerCloak,
+	DBDSlasherScore_SetReverseBearTrap,
+	DBDSlasherScore_AbductionDash,
+	DBDSlasherScore_DashHitSuccess,
+	DBDSlasherScore_KillWithReverseBearTrap,
+	DBDCamperScore_SearchRBTKey,
+	DBDCamperScore_EscapeRBT,
+	DBDGameEvent_ReplacedGoodSkillCheckAsGreat,
+	DBDCamperScore_RemoveReverseBearTrapSkillCheckSuccess,
+	DBDCamperScore_RemoveReverseBearTrapSkillCheckBonus,
+	DBDSlasherScore_DamageGeneratorWhileHooked,
+	DBDGameEvent_SurvivorDamaged,
+	DBDGameEvent_SurvivorHealed,
+	DBDGameEvent_Interruption,
+	DBDGameEvent_SurvivorFailedHealSkillcheck,
+	DBDGameEvent_HookedSurvivorSacrificeBegin,
+	DBDGameEvent_AcquireEventKillerCoin,
+	DBDGameEvent_AcquireEventSurvivorCoin,
+	DBDCamperScore_EventGeneratorFixed,
+	DBDSlasherScore_HookedOnEventHook,
+	DBDGameEvent_GeneratorProgress,
+	DBDSlasherScore_DownSmokedCamper,
+	DBDSlasherScore_HitSmokedCamper,
+	DBDSlasherScore_SurvivorEnterGasCloud,
+	DBDSlasherScore_BombDirectHit,
+	DBDSlasherScore_ThrowBomb,
+	DBDGameEvent_CoopAction,
+	DBDSlasherScore_StartActivePhaseWalk
+};
+UENUM(BlueprintType)
+enum class EInputInteractionType : uint8
+{
+	VE_None,
+	VE_Interact,
+	VE_AttackInteract,
+	VE_ItemInteract,
+	VE_Rush,
+	VE_ItemUse,
+	VE_ItemDrop,
+	VE_InteractMash,
+	VE_LeftRightMash,
+	VE_ExternalRequestDrop,
+	VE_ExternalRequestFlashlightStunUncloak,
+	VE_ExternalRequestPalletStun,
+	VE_ExternalRequestStunUncloak,
+	VE_ExternalRequestPalletStunUncloak,
+	VE_ExternalRequestStun,
+	VE_ExternalRequestDropByStunning,
+	VE_ExternalRequestDropByStunningByPallet,
+	VE_ExternalRequestDropByWiggleFree,
+	VE_ExternalRequestDropBySkillCheck,
+	VE_ExternalRequestKillerCaughtInBearTrap,
+	VE_ExternalRequestDestroyWithPowerAttack,
+	VE_FastInteract,
+	VE_ExternalRequestSlashedOutOfTrap,
+	VE_ExternalRequestSacrifice,
+	VE_Gesture01,
+	VE_Gesture02,
+	VE_Gesture03,
+	VE_Gesture04,
+	VE_ExternalChainBlink,
+	VE_ExternalRequestStunEvilWithin,
+	VE_ExternalRequestKickStun,
+	VE_ExternalRequestEscape,
+	VE_Struggle,
+	VE_Action,
+	VE_ExternalRequestPutToSleepStun,
+	VE_Crouch,
+	VE_ExternalRequestRBTExecute,
+	VE_ActionKiller,
+	VE_ExternalRequestRBTExecuteAtExit,
+	VE_ExternalRequestStunBySkillCheck,
+	VE_AbilityUse,
+	VE_ExternalRequestClosetStun,
+	VE_ExternalRequestClosetExitFast,
+	VE_ActivatablePerk01,
+	VE_ActivatablePerk02,
+	VE_ActivatablePerk03,
+	VE_ActivatablePerk04,
+	VE_CancelCharge
+};
+/*UENUM(BlueprintType)
+enum class ETimerState : uint8
+{
+	Cleared,
+	Started,
+	Paused
+};*/
