@@ -262,9 +262,9 @@ struct FMaterialReplacerData
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TSoftObjectPtr<UMaterial> From;
+		TSoftObjectPtr<UMaterialInterface> From;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TSoftObjectPtr<UMaterial> To;
+		TSoftObjectPtr<UMaterialInterface> To;
 };
 
 USTRUCT(BlueprintType)
@@ -791,4 +791,21 @@ struct FCharacterDescription : public FDBDTableRowBase
 		TArray<FName> CustomizationCategories;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString CharacterId;
+};
+
+USTRUCT(BlueprintType)
+struct FStatusEffectProperties
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FName> Tags;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSoftObjectPtr<UBlueprint> StatusEffectBlueprint;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EStatusEffectType StatusEffectType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EExternalEffectSource ExternalEffectSource;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSoftObjectPtr<USkeletalMesh> ItemMesh;
 };
