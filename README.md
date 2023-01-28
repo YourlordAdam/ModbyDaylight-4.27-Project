@@ -3,6 +3,10 @@ MBD Template Project by Archengius with Edits by Your lord Adam to work on 5.7.2
 
 -Patchnotes
 
+1/28/2023
+
+-CustomizationItem MaterialsMap updated to work again -Credit to Cranch
+
 1/12/2023
 
 -initial commit 
