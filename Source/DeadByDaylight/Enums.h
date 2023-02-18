@@ -395,6 +395,16 @@ enum class EItemAvailability : uint8
 	Available
 };
 UENUM(BlueprintType)
+enum class EStatusEffectType : uint8
+{
+	None
+};
+UENUM(BlueprintType)
+enum class EExternalEffectSource : uint8
+{
+	None
+};
+UENUM(BlueprintType)
 enum class EDBDScoreTypes : uint8
 {
 	DBDCamperScore_SurviveHealthy,
